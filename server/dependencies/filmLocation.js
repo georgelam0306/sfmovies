@@ -18,8 +18,8 @@ module.exports = function(apiEndpoint, maps) {
 				body = JSON.parse(body);
 				async.eachSeries(body, function(item, callback) {
 					maps.convertAddressToLocation(item.locations, function(res) {
-						if(res.results.length > 0)
-							item.locations = res.results[0].geometry;
+						if(res && res.results.length > 0)
+							item.geometry = res.results[0].geometry;
 					});
 					//delay checks by 200ms to not go past geocode query limit
 					setTimeout(callback, 200);
@@ -34,6 +34,28 @@ module.exports = function(apiEndpoint, maps) {
 			isReady = false;
 			mapLocations = [];
 			cacheLocations(cb);
+		},
+		getClosestLocations : function(location, range, maxResults) {
+			//todo: sort items from closest to furthest, memoize, and return a range of items for optimization
+			var sqrMag, sqrRange, count;
+			if(!this.isReady) {
+				return null;
+			}
+
+			sqrMag = function(pos1, pos2) {
+				return Math.pow(pos2.longitude + pos1.longitude, 2) + Math.pow(pos2.latitude + pos.latitude, 2);
+			}
+
+			sqrRange = range * range;
+			count = 0;
+			return _.map(mapLocations, function(item) {
+				if(maxResults !== -1 && count < maxResults) {
+					if(sqrMag(item.geometry.location, location) < range) {
+						count++;
+						return item;
+					}
+				}
+			});
 		}
 	}
 }
