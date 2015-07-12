@@ -35,6 +35,10 @@ module.exports = function(apiEndpoint, maps) {
 			mapLocations = [];
 			cacheLocations(cb);
 		},
+		getAllLocations: function() {
+			console.log("Get all locations");
+			return mapLocations;
+		},
 		getClosestLocations : function(location, range, maxResults) {
 			//todo: sort items from closest to furthest, memoize, and return a range of items for optimization
 			var sqrMag, sqrRange, count;

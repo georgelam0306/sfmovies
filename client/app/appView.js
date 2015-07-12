@@ -1,14 +1,35 @@
 var AppView = Backbone.View.extend({
-	childView : null,
+	initializeMap : function() {
+    var center = new google.maps.LatLng(41.63, -1);
+    var styles = [
+      {
+        elementType: "geometry",
+        stylers: [
+          { lightness: 33 },
+          { saturation: -90 }
+        ]
+      }
+    ];
+
+    var mapOptions = {
+        zoom: 9,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: center,
+        styles: styles
+    };
+    this.map = new google.maps.Map(document.getElementById('map_canvas'),
+      mapOptions);
+  },
 	initialize: function() {
-		console.log("initialize");
+		this.initializeMap();
+    var filmLocations = new FilmLocations();
+    filmLocations.fetch({success: function() {
+      console.log(filmLocations)
+    }});
 		
 	},
 	render: function()
 	{
-		// this.$el.children().detach();
-		// return this.$el.append(this.childView.$el);
-		this.$el.html('hello world');
 		return this.$el;
 	}
 });

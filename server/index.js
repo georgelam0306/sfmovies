@@ -7,7 +7,8 @@ var app = express();
 var apiRouter = express.Router();
 var port = process.env.PORT || 4568;
 var mapRoutes = require('./routes/mapRoutes.js');
-
+var cors = require('cors');
+app.use(cors());
 app.use(web.bodyParser.json());
 app.use(web.bodyParser.urlencoded({ extended: true }));
 app.use('/api', apiRouter);
