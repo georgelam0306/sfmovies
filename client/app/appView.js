@@ -25,13 +25,12 @@ var AppView = Backbone.View.extend({
     var filmLocations = new FilmLocations();
     var self = this;
     filmLocations.fetch({success: function() {
-      console.log(filmLocations);
       filmLocationsView = new FilmLocationsView({collection: filmLocations, map: self.map});
-      filmLocationsView.render();
+      self.$el.append(filmLocationsView.render());
     }});
 	},
 	render: function()
 	{
-		//return this.$el;
+		return this.$el;
 	}
 });

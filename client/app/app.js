@@ -1,4 +1,4 @@
 $(function() {
 	Backbone.history.start();
-	new AppView();
+	new AppView().render().appendTo('body');
 });

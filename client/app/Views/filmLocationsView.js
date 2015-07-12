@@ -1,15 +1,19 @@
 var FilmLocationsView = Backbone.View.extend({
-
+	tagName: 'div',
 	initialize: function(options) {
-		console.log(options)
 		this.map = options.map;
 	},
 	render: function()
 	{
 		var self = this;
-		return this.collection.map(function(item) {
+		this.$el.children().detach();
+		this.collection.map(function(item) {
 			var marker_view = new FilmLocationMarkerView({ model: item, map: self.map });
-			return marker_view.render();
+			marker_view.render();
+			var filmLocationView = new FilmLocationView({model: item, map: self.map});
+			self.$el.append(filmLocationView.render());
 		});
+
+		return this.$el;
 	}
 });

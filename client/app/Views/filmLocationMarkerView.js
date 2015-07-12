@@ -1,11 +1,8 @@
 var FilmLocationMarkerView = Backbone.View.extend({
   initialize: function(options) {
-      console.log(options);
-
       this.model = options.model;
 
       var geometry = this.model.get('geometry');
-      console.log(geometry);
 
       if(geometry) {
         this.model.on('remove', this.remove, this);
@@ -25,18 +22,21 @@ var FilmLocationMarkerView = Backbone.View.extend({
           content: this.marker.descr
         });
 
-        google.maps.event.addListener(this.marker, 'click', self.show_company_detail);
+        this.displayInfo = false;
+        google.maps.event.addListener(this.marker, 'click', this.showInfo);
+      }
+    },
+    showInfo : function() {
+      if(!this.displayInfo) {
+        this.displayInfo = true;
+        this.infowindow.open(this.map, this);
+      }
+      else {
+        this.displayInfo = false;
+        this.infowindow.close();
       }
     },
 
-    //---------------------------------------
-    // Event handlers for marker events
-
-    show_company_info : function() {
-      this.infowindow.open(this.map, this);
-    },
-
     render: function() {
-      return this.$el;
     }
 });
