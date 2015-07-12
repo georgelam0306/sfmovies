@@ -1,27 +1,32 @@
-var FilmLocationsMarkerView = Backbone.View.extend({
-  tagName:  "li",
+var FilmLocationMarkerView = Backbone.View.extend({
   initialize: function(options) {
-    
+      console.log(options);
+
       this.model = options.model;
-      this.model.on('remove', this.remove, this);
 
-      this.map = options.map;
+      var geometry = this.model.get('geometry');
+      console.log(geometry);
 
-      var pos = this.model.get('pos');
+      if(geometry) {
+        this.model.on('remove', this.remove, this);
 
-      this.marker = new google.maps.Marker({
-          map: this.map,
-          position: new google.maps.LatLng(pos.lat, pos.lon),
-          title: this.model.name,
-          descr : this.model.get('descr'),
-          id : this.model.get('company_id')
-      });
+        this.map = options.map;
 
-      this.marker.infowindow = new google.maps.InfoWindow({
-        content: this.marker.descr
-      });
 
-      google.maps.event.addListener(this.marker, 'click', self.show_company_detail);
+        this.marker = new google.maps.Marker({
+            map: this.map,
+            position: new google.maps.LatLng(geometry.location.lat, geometry.location.lng),
+            title: this.model.get('title'),
+            descr : this.model.get('production_company'),
+            id : this.model.get('cid')
+        });
+
+        this.marker.infowindow = new google.maps.InfoWindow({
+          content: this.marker.descr
+        });
+
+        google.maps.event.addListener(this.marker, 'click', self.show_company_detail);
+      }
     },
 
     //---------------------------------------
@@ -30,10 +35,8 @@ var FilmLocationsMarkerView = Backbone.View.extend({
     show_company_info : function() {
       this.infowindow.open(this.map, this);
     },
-    
-  },
-  render: function()
-  {
-    return this.$el;
-  }
+
+    render: function() {
+      return this.$el;
+    }
 });

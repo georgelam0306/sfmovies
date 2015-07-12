@@ -18,8 +18,11 @@ module.exports = function(apiEndpoint, maps) {
 				body = JSON.parse(body);
 				async.eachSeries(body, function(item, callback) {
 					maps.convertAddressToLocation(item.locations, function(res) {
-						if(res && res.results.length > 0)
+						console.log(res);
+						if(res && res.results.length > 0) {
+							console.log(res);
 							item.geometry = res.results[0].geometry;
+						}
 					});
 					//delay checks by 200ms to not go past geocode query limit
 					setTimeout(callback, 200);

@@ -2,6 +2,7 @@ var geocoder = require("geocoder");
 
 module.exports = function(config) {
 	var mapLocationsCache = {}
+	console.log(config);
 	return {
 			convertAddressToLocation : function(address, cb) {
 				// geocode API
@@ -21,7 +22,7 @@ module.exports = function(config) {
 						mapLocationsCache[address] = result;
 					  cb(result);
 					}
-				});
+				}, {key: config.key});
 		}
 	}
 }

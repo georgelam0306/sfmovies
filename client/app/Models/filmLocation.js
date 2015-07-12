@@ -2,7 +2,7 @@ var FilmLocation = Backbone.Model.extend({
 	defaults : {
 		title: 'The Organization',
 		locations: '',
-		geometry: {},
+		geometry: { location: { lat: 0, lng: 0}},
     release_year: '1971',
     production_company: 'The Mirisch Corporation',
     distributor: 'United Artists',
@@ -11,6 +11,5 @@ var FilmLocation = Backbone.Model.extend({
     actor_3: 'William Holden' 
 	},
   initialize: function() {
-  	console.log(this.attributes);
   }
 });

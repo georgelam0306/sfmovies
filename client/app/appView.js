@@ -1,6 +1,6 @@
 var AppView = Backbone.View.extend({
 	initializeMap : function() {
-    var center = new google.maps.LatLng(41.63, -1);
+    var center = new google.maps.LatLng(37.7881209, -122.3954958);
     var styles = [
       {
         elementType: "geometry",
@@ -12,7 +12,7 @@ var AppView = Backbone.View.extend({
     ];
 
     var mapOptions = {
-        zoom: 9,
+        zoom: 20,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: center,
         styles: styles
@@ -23,13 +23,15 @@ var AppView = Backbone.View.extend({
 	initialize: function() {
 		this.initializeMap();
     var filmLocations = new FilmLocations();
+    var self = this;
     filmLocations.fetch({success: function() {
-      console.log(filmLocations)
+      console.log(filmLocations);
+      filmLocationsView = new FilmLocationsView({collection: filmLocations, map: self.map});
+      filmLocationsView.render();
     }});
-		
 	},
 	render: function()
 	{
-		return this.$el;
+		//return this.$el;
 	}
 });
