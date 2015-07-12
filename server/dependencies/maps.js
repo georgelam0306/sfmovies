@@ -6,7 +6,6 @@ module.exports = function(config) {
 	return {
 			convertAddressToLocation : function(address, cb) {
 				// geocode API
-				address += ", san francisco, california";
 				if(mapLocationsCache[address])
 				{
 					cb(mapLocationsCache[address]);

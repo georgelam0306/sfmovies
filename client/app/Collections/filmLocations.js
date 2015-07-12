@@ -4,8 +4,12 @@ var FilmLocations = Backbone.Collection.extend({
     initialize : function() {
     	console.log("initialized");
     },
-    add_new: function(filmLocation) {
-    	console.log(filmLocation);
-    	this.create(filmLocation);
-  },
+	  search : function(letters){
+			if(letters == "") return this;
+	 
+			var pattern = new RegExp(letters,"gi");
+			return _(this.filter(function(data) {
+			  	return pattern.test(data.get("title"));
+			}));
+		}
 });

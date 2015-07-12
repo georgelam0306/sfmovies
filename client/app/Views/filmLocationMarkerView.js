@@ -38,5 +38,11 @@ var FilmLocationMarkerView = Backbone.View.extend({
     },
 
     render: function() {
+    },
+    remove : function() {
+      if(this.marker) {
+        this.marker.setMap(null);
+        this.marker = null;
+      }
     }
 });
