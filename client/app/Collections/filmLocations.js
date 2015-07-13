@@ -1,5 +1,5 @@
 var FilmLocations = Backbone.Collection.extend({
-		url: "http://127.0.0.1:4568/api/fetchAll",
+		url: "/api/fetchAll",
     model: FilmLocation,
     initialize : function() {
     	console.log("initialized");
