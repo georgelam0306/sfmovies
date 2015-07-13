@@ -20,6 +20,7 @@
 	- Batch fetch requests and send to client in multiple passes so that the client doesn't have to keep the entire film locations in memory
 	- Add a cache database on the server side so that geocoding doesn't happen every single time the server starts.
 	- Make client front end look nice
+	- Separate server for static content
 
 ## Links ##
 LinkedIn: https://www.linkedin.com/in/georgelam0306
