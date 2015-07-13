@@ -4,7 +4,7 @@
   "authors": [
     "georgelam0306@gmail.com"
   ],
-  "main": "index.html",
+  "main": "client/index.html",
   "license": "MIT",
   "ignore": [
     "**/.*",
